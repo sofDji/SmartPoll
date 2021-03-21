@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags humanize %}
+
+{% block content %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'teachers:quiz_change_list' %}">Mes Formulaires</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'teachers:quiz_change' quiz.pk %}">{{ quiz.name }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Resultats</li>
+    </ol>
+  </nav>
+  <h2 class="mb-3">{{ quiz.name }}  / date fin : {{ quiz.date_fin }}</h2> 
+
+  <div class="card">
+    <div class="card-header">
+      <strong>Formulaire pris</strong>
+      {% if quiz.date_fin >= today %}
+        <span class="btn btn-warning float-right"><a style="text-decoration: none;color: black;">Cp en cours...</a></span>
+      {% else %}
+        {% if quiz.results_ready == 2  %}
+          <span class="btn btn-primary float-right"><a href="{% url 'aff_rep' quiz.pk %}" style="text-decoration: none;color: white;">Voir résultat</a></span>
+        {% else %}
+          <span class="btn btn-secondary float-right"><a  style="text-decoration: none;color: white;">Voir résultat</a></span>
+          <span class="btn btn-primary float-right" style="margin-right: 10px;"><a href="{% url 'readysR' quiz.pk %}" style="text-decoration: none;color: white;">Pret {{ quiz.results_ready }} / 2</a></span>
+        {% endif %}
+      {% endif %}
+      
+    </div>
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          <th>Reponse</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for taken_quiz in taken_quizzes %}
+          <tr>
+            <td>Anonyme</td>
+            <td>{{ taken_quiz.date|naturaltime }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="card-footer text-muted">
+      Total de reponses: <strong>{{ total_taken_quizzes }}</strong>
+    </div>
+  </div>
+{% endblock %}

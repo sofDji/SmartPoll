@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'teachers:quiz_change_list' %}">Mes formulaires</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'teachers:quiz_change' quiz.pk %}">{{ quiz.name }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Ajouter une nouvelle question</li>
+    </ol>
+  </nav>
+  <h2 class="mb-3">Ajouter une nouvelle question</h2>
+  <p class="lead">Premierement ecrivez votre question. Dans la procheine etape vous pourrez ajouter les reponses possible.</p>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Sauvegarder</button>
+    <a href="{% url 'teachers:quiz_change' quiz.pk %}" class="btn btn-outline-secondary" role="button">Ignorer</a>
+  </form>
+{% endblock %}

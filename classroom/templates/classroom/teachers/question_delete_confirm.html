@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'teachers:quiz_change_list' %}">Mesformulaires</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'teachers:quiz_change' quiz.pk %}">{{ quiz.name }}</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'teachers:question_change' quiz.pk question.pk %}">{{ question.text }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Confirmer suppression</li>
+    </ol>
+  </nav>
+  <h2 class="mb-3">Confimer suppression</h2>
+  <p class="lead">Vous etes sure de supprimer la question <strong>"{{ question.text }}"</strong>?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger btn-lg">Oui, je suis sure</button>
+    <a href="{% url 'teachers:question_change' quiz.pk question.pk %}" class="btn btn-outline-secondary btn-lg" role="button">Ignorer</a>
+  </form>
+{% endblock %}

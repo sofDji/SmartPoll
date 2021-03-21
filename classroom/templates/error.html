@@ -1,0 +1,15 @@
+{% load static %}
+<div align="center" style="margin-top: 12em;">
+<img src="{% static 'img/error.png' %}" style="width: 128px"><br>
+{% if msg %}
+ {{msg}}
+{% else %}
+<p style="font-family: 'Clicker Script';color: #333;font-size: 30px">Oups vous etes tomber ici par erreur</p>	
+<p>cette page peut apparaitre dans les cas suivants:</p>
+<ul align="center">
+	<li>Tentative de creation d'un CP avant de la fin de tous les CP en cours</li>
+	<li>Tentative de reponse sur un CP deja finis </li>
+	<li>Tentative de connexion sans insertion de carte à puce</li>
+</ul>
+</div>
+{% endif %}

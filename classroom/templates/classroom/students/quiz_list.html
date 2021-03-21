@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <a style="" href="{% url 'aff_docs' %}" class="btn btn-primary" role="button">DOCUMENTS</a>
+  {% if user.student.is_deleguer %}
+    <a href="{% url 'cp' %}" class="btn btn-primary" role="button">Les cp</a>
+  {% endif %}
+  {% include 'classroom/students/_header.html' with active='new' %}
+
+  <div class="card">
+
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          <th>Formulaire</th>
+          <th>Specialité</th>
+          <th>Nombre de questions</th>
+          <th>Date limite</th>
+        </tr>
+      </thead>
+      <tbody>
+       <h1>
+        {% for quiz in quizzes %}
+</h1>
+          <tr>
+            <td class="align-middle">{{ quiz.name }}</td>
+            <td class="align-middle">{{ quiz.subject.get_html_badge }}</td>
+            <td class="align-middle">{{ quiz.questions_count }} questions</td>
+            <td class="align-middle">{{ quiz.date_fin }}</td>
+            <td class="text-right">
+              <a href="{% url 'students:take_quiz' quiz.pk %}" class="btn btn-primary" >Repondre</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="4">Pas de formulaires pour votre section encore</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

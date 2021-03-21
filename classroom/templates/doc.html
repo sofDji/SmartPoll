@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+
+ 
+       		<h2>Documents :</h2> <br>
+				<ul>
+				{% for n in documents %}
+				    <li><a href="{{p}}media/{{ n.filepath }}">{{ n.title }}</a></li>
+				{% endfor %}
+				</ul>
+
+
+{% endblock %}

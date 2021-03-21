@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+{% if request.user.student.is_deleguer %}
+<table class="table mb-0">
+      <thead>
+        <tr>
+          <th>Formulaires</th>
+          <th>Specialité</th>
+          <th>date fin</th>
+          <th>responsable</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for quiz in quizs %}
+          <tr>
+            <td class="align-middle"><a href="{% url 'teachers:quiz_change' quiz.pk %}">{{ quiz.name }}</a></td>
+            <td class="align-middle">{{ quiz.subject.get_html_badge }}</td>
+            <td class="align-middle">{{ quiz.date_fin }}</td>
+            <td class="align-middle">{{ quiz.owner }}</td>
+            <td class="text-right">
+            {% if quiz.date_fin >= today %}
+              <span class="btn btn-warning float-right"><a style="text-decoration: none;color: black;">Cp en cours...</a></span>
+            {% else %}
+              {% if quiz.results_ready == 2  %}
+                <span class="btn btn-primary float-right"><a href="{% url 'aff_rep2' quiz.pk %}" style="text-decoration: none;color: white;">Voir résultat</a></span>
+              {% else %}
+                <span class="btn btn-secondary float-right"><a  style="text-decoration: none;color: white;">Voir résultat</a></span>
+                <span class="btn btn-primary float-right" style="margin-right: 10px;"><a href="{% url 'readysD' quiz.pk %}" style="text-decoration: none;color: white;">Pret {{ quiz.results_ready }} / 2</a></span>
+              {% endif %}
+            {% endif %}
+
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="5">Vous avez creer aucun formulaire encore.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+	{% else %}
+		<div align="center" >
+		<img src="{% static 'img/error.png' %}" style="width: 128px"><br>
+		<p style="font-family: 'Clicker Script';color: #333;font-size: 30px">Oups vous etes tomber ici par erreur</p>	
+		</div>
+    {% endif %}
+{% endblock %}

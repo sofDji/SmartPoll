@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <h2 align="center">ETAPE 2</h2><br><br>
+  <div class="w3-row" align="">
+  	<div class="w3-col m12 w3-center"><img src="{% static 'img/cnx.png' %}" style="width: 65px">
+  		<p>Appuyer sur le connexion <br> pour vous connecter</p>
+  	</div>
+  </div>
+  <p class="lead" align="center">
+  	<br>
+    <a href="{% url 'inf' code %}" class="btn btn-primary" role="button">Connexion</a>
+    <a href="{% url 'inf2' code %}" class="btn btn-warning" role="button">Debloquer</a><br>
+
+
+  </p>
+  <hr>
+  <p>
+  </p>
+
+  
+{% endblock %}
+

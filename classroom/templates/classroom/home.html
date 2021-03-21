@@ -1,0 +1,34 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags crispy_forms_filters %}
+
+{% block content %}
+  <h2 align="center">ETAPE 1</h2><br><br>
+  <div class="w3-row" align="">
+  	<div class="w3-col m6 w3-center"><img src="{% static 'img/insert.png' %}" style="width: 65px">
+  		<p>Inserez votre carte dans <br> le lecteur de cartes</p>
+  	</div>
+  	<div class="w3-col m6 w3-center"><img src="{% static 'img/connected.png' %}" style="width: 65px">
+  		<p>Appuyer sur valider apres<br>avoir entrer votre  code PIN </p>
+  	</div>	
+  </div>
+  <p class="lead" align="center">
+  	<br>
+    <form action="/" method="post">
+      {% csrf_token %}
+      {{ form | crispy }}
+      <div align="center">
+        <input class="btn btn-primary" type="submit" value="Valider"><br>
+      
+      
+    </form>
+    <a href="{% url 'login' %}" style="font-size: 12px;text-decoration: none;color: black">J'ai oublier ma carte</a>
+    </div>
+  </p>
+  <hr>
+  <p>
+  </p>
+
+  
+{% endblock %}
