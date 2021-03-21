@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Inscription</h2>
+  <p class="lead">Inscrivez vous en fonction de votre status</p>
+  <a href="{% url 'student_signup' %}" class="btn btn-student btn-lg" role="button">Etudiant</a>
+  <a href="{% url 'teacher_signup' %}" class="btn btn-teacher btn-lg" role="button">Enseignant</a>
+{% endblock %}
